@@ -1,8 +1,9 @@
 Description:
-    Explain the generator
+    Generates an simple CMS with user administration, content entry and more ...
 
 Example:
-    rails generate cms Thing
+    rails generate cms "Website title"
 
     This will create:
-        what/will/it/create
+        app/controllers/users_controller.rb
+        app/models/user.rb
