@@ -7,3 +7,4 @@ Example:
     This will create:
         app/controllers/users_controller.rb
         app/models/user.rb
+        db/migrate/TIMESTAMP_devise_create_users.rb
