@@ -1,0 +1,6 @@
+- metatags :title => t(:index_title, :model => ContentWrapper.model_name.human)
+
+.action_links
+  = link_to t(:new_link, :model => ContentWrapper.model_name.human), new_content_wrapper_path
+
+= render @content_wrappers
