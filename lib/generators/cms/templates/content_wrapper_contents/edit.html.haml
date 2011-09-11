@@ -1,0 +1,7 @@
+- metatags :title => t(:edit_title, :model => ContentWrapperContent.model_name.name)
+
+.action_links
+  = link_to t(:show_link), @content_wrapper_content
+  = link_to t(:back_link), content_wrapper_content_wrapper_contents_path(@content_wrapper_content.content_wrapper)
+
+= render 'form'

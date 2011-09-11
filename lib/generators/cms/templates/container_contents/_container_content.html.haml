@@ -1,0 +1,10 @@
+- if dark_side?
+  %div[container_content]{ :class => "partial #{cycle("odd", "even")}" }
+    = link_to container_content.container.name, container_content.container unless @container
+    %p== #{ContainerContent.human_attribute_name("position")}: #{container_content.position}
+    = render container_content.content
+    .action_links
+      = link_to t(:remove_from_container), container_content, :confirm => t(:confirm_destroy_message), :method => :delete
+- else
+  %div.content
+    = render :partial => "#{container_content.content_type.tableize}/public/#{container_content.content_view}", :locals => { :"#{container_content.content_type.tableize.singularize}" => container_content.content }

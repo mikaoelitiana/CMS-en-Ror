@@ -1,0 +1,19 @@
+= simple_form_for([@content_wrapper_content.content_wrapper, @content_wrapper_content]) do |f|
+  - if @content_wrapper_content.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@content_wrapper_content.errors.count, "error")
+        prohibited this content_wrapper_content from being saved:
+
+      %ul
+      - @content_wrapper_content.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+    =# f.association :container
+    = f.input :tags
+    = f.input :content_with_view, :as => :select, :collection => @contents_with_view
+    = f.input :position, :as => :select, :collection => 0..50
+
+  .actions
+    = f.button :submit

@@ -1,0 +1,21 @@
+- metatags :title => @content_wrapper_content.name
+.action_links
+  = link_to t(:edit_link), edit_content_wrapper_content_path(@content_wrapper_content)
+  = link_to t(:back_link), content_wrapper_contents_path
+
+.attribute
+  %strong= "#{ContentWrapperContent.human_attribute_name 'name'}:"
+  = @content_wrapper_content.name
+.attribute
+  %strong= "#{ContentWrapperContent.human_attribute_name 'content_wrapper_id'}:"
+  = link_to @content_wrapper_content.content_wrapper.name, @content_wrapper_content.content_wrapper
+.attribute
+  %strong= "#{ContentWrapperContent.human_attribute_name 'content_id'}:"
+  = link_to @content_wrapper_content.content.name, @content_wrapper_content.content
+.attribute
+  %strong= "#{ContentWrapperContent.human_attribute_name 'tags'}:"
+  = @content_wrapper_content.tags
+.attribute
+  %strong= "#{ContentWrapperContent.human_attribute_name 'position'}:"
+  = @content_wrapper_content.position
+

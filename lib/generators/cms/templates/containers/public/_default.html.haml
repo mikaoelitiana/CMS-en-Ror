@@ -1,0 +1,12 @@
+- content_for :action_links do
+  = link_to t(:edit_link, :model => Container.model_name.human), edit_container_path(container)
+  = link_to t(:admin_show_link), container
+
+= content_for :action
+-# Real content goes here.
+= render container.container_contents
+- unless container.sitelinks.empty?
+  .actions
+    %ul
+      - container.sitelinks.each do |sitelink|
+        %li= generated_link_to sitelink.navigation_entry, sitelink.printed, "#{sitelink.navigation_entry.to_param}_link"

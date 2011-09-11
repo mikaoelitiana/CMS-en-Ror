@@ -1,0 +1,5 @@
+- metatags :title => t(:new_title, :model => ContainerContent.model_name.human)
+.action_links
+  = link_to t(:back_link), container_contents_path
+
+= render 'form'
