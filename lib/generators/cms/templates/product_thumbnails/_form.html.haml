@@ -1,0 +1,19 @@
+= simple_form_for(@product_thumbnail, :html => { :multipart => true }) do |f|
+  - if @product_thumbnail.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@product_thumbnail.errors.count, "error")
+        prohibited this product_thumbnail from being saved:
+
+      %ul
+      - @product_thumbnail.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+    = f.input :name
+    = f.association :product
+    = f.input :title
+    = f.input :image
+    = f.input :description
+  .actions
+    = f.button :submit

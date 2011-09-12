@@ -1,0 +1,16 @@
+- if dark_side?
+  %div[product_thumbnail]{ :class => "partial" }
+    = link_to(image_tag(product_thumbnail.image.url, :alt => product_thumbnail.name, :title => product_thumbnail.title), product_thumbnail.product)
+    .action_links
+      = link_to t(:edit_link), edit_product_thumbnail_path(product_thumbnail)
+      = link_to t(:show_link), product_thumbnail
+      = link_to t(:destroy_link), product_thumbnail, :confirm => t(:confirm_destroy_message), :method => :delete
+- else
+  -if product_thumbnail.product.product_family
+    = link_to(image_tag(product_thumbnail.image.url, :alt => product_thumbnail.name, :title => product_thumbnail.title), product_thumbnail.product)
+  -else
+    #other_thumbnail
+      .image_thumbnail
+        = image_tag(product_thumbnail.image.url, :alt => product_thumbnail.name, :title => product_thumbnail.title)
+      .description
+        = product_thumbnail.description

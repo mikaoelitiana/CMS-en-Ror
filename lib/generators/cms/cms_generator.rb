@@ -22,7 +22,7 @@ class CmsGenerator < Rails::Generators::NamedBase
   end
 
   #container
-  def copy_contenaire_files
+  def copy_container_files
     copy_file "containers_controller.rb", "app/controllers/containers_controller.rb"
     copy_file "container.rb", "app/models/container.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/containers/','app/views/containers/'
@@ -31,4 +31,30 @@ class CmsGenerator < Rails::Generators::NamedBase
     FileUtils.cp_r 'lib/generators/cms/templates/container_contents/','app/views/container_contents/'
   end
 
+  #contact
+  def copy_contact_files
+    copy_file "contacts_controller.rb", "app/controllers/contacts_controller.rb"
+    copy_file "contact.rb", "app/models/contact.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/contacts/','app/views/contacts/'
+  end
+
+  #messages
+  def copy_message_files
+    copy_file "messages_controller.rb", "app/controllers/messages_controller.rb"
+    copy_file "message.rb", "app/models/message.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/messages/','app/views/messages/'
+  end
+
+  #products
+  def copy_product_files
+    copy_file "products_controller.rb", "app/controllers/products_controller.rb"
+    copy_file "product.rb", "app/models/product.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/products/','app/views/products/'
+    copy_file "product_families_controller.rb", "app/controllers/product_families_controller.rb"
+    copy_file "product_family.rb", "app/models/product_family.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/product_families/','app/views/product_families/'
+    copy_file "product_thumbnails_controller.rb", "app/controllers/product_thumbnails_controller.rb"
+    copy_file "product_thumbnail.rb", "app/models/product_thumbnail.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/product_thumbnails/','app/views/product_thumbnails/'
+  end
 end

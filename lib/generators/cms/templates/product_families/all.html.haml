@@ -1,0 +1,4 @@
+- metatags :title => "Les produits nature"
+- @product_families.each do |product_family|
+  - unless product_family.products.empty?
+    = render :partial => 'product_families/public/all', :locals => { :product_family => product_family }

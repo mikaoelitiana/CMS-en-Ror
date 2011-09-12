@@ -1,0 +1,23 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => ProductFamily.model_name.human, :name => @product_family.name)
+  .action_links
+    = link_to t(:back_link), product_families_path
+    = link_to t(:edit_link, :model => ProductFamily.model_name.human), edit_product_family_path(@product_family)
+    = link_to t(:destroy_link, :model => ProductFamily.model_name.human), @product_family, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin
+    %dt= ProductFamily.human_attribute_name 'name'
+    %dd= @product_family.name
+    %dt= ProductFamily.human_attribute_name 'description'
+    %dd= @product_family.description
+    %dt== #{pluralize(@product_family.products.count, Product.model_name.human)} :
+    %dd== #{@product_family.products.map{ |p| link_to(p.name, p) }.to_sentence}.
+    %dt Descendants :
+    %dd== #{@product_family.children.map{ |p| link_to(p.name, p) }.to_sentence}.
+
+- else
+  - metatags :title => @product_family.name, :keywords => @product_family.products.map{ |p| p.name }.join(","), :description => @product_family.description
+
+  - unless @product_family.description.try(:empty?)
+    .description
+      = simple_format @product_family.description
+  = render :partial => 'product_families/public/show', :locals => { :product_family => @product_family }

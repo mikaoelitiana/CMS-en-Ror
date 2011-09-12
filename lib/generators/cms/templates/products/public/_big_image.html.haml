@@ -1,0 +1,6 @@
+%div[product]{ :class => "partial public" }
+  .content
+    = image_tag(product.big_image.url, :width => 758, :height => 505, :alt => product.name)
+    %h2
+      = link_to "<span>#{product.name}</span>".html_safe, public_product_path(product.product_family, product)
+      = link_to(image_tag("layout/suite.png"), "", :class => "next")

@@ -1,0 +1,6 @@
+- if dark_side?
+  - metatags :title => t(:index_title, :model => ProductFamily.model_name.human)
+  .action_links
+    = link_to t(:new_link, :model => ProductFamily.model_name.human), new_product_family_path
+  .product_families
+    = render @product_families
