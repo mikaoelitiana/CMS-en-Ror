@@ -31,6 +31,7 @@ class CmsGenerator < Rails::Generators::NamedBase
     FileUtils.cp_r 'lib/generators/cms/templates/content_wrappers/','app/views/content_wrappers/'
     copy_file "content_wrapper_contents_controller.rb", "app/controllers/content_wrapper_contents_controller.rb"
     copy_file "content_wrapper_content.rb", "app/models/content_wrapper_content.rb"
+    copy_file "create_content_wrapper_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_content_wrapper_contents.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/content_wrapper_contents/','app/views/content_wrapper_contents/'
     copy_file "content_extension.rb", "app/models/content_extension.rb"
     copy_file "content_methods.rb", "app/models/content_methods.rb"
@@ -58,6 +59,12 @@ class CmsGenerator < Rails::Generators::NamedBase
     copy_file "messages_controller.rb", "app/controllers/messages_controller.rb"
     copy_file "message.rb", "app/models/message.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/messages/','app/views/messages/'
+  end
+
+  #misc
+  def copy_misc_files
+    copy_file "misc_controller.rb", "app/controllers/misc_controller.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/misc/','app/views/misc/'
   end
 
   #products
