@@ -14,12 +14,12 @@ class CmsGenerator < Rails::Generators::NamedBase
     copy_file "user.rb", "app/models/user.rb"
     copy_file "devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_devise_create_users.rb"
     line = "::Application.routes.draw do"
-    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-      "#{match}\n  devise_for :users\n"
-    end
+    #gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
+    #  "#{match}\n  devise_for :users\n"
+    #end
     line = "scope :path => \"admin\" do"
     gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-      "#{match}\n  resources :users\n"
+      "#{match}\n    resources :users\n"
     end
   end
 
@@ -71,5 +71,10 @@ class CmsGenerator < Rails::Generators::NamedBase
     copy_file "product_thumbnails_controller.rb", "app/controllers/product_thumbnails_controller.rb"
     copy_file "product_thumbnail.rb", "app/models/product_thumbnail.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/product_thumbnails/','app/views/product_thumbnails/'
+  end
+
+  #helpers
+  def copy_helpers
+    directory "helpers","app/helpers"
   end
 end
