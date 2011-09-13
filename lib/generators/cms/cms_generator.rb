@@ -1,11 +1,26 @@
 class CmsGenerator < Rails::Generators::NamedBase
   source_root File.expand_path('../templates', __FILE__)
 
+  #admin routes
+  def admin_routes
+    line = "::Application.routes.draw do"
+    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
+      "#{match}\n  scope :path => \"admin\" do\n  end"
+    end
+  end
   #User related files
   def copy_user_files
     copy_file "users_controller.rb", "app/controllers/users_controller.rb"
     copy_file "user.rb", "app/models/user.rb"
     copy_file "devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_devise_create_users.rb"
+    line = "::Application.routes.draw do"
+    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
+      "#{match}\n  devise_for :users\n"
+    end
+    line = "scope :path => \"admin\" do"
+    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
+      "#{match}\n  resources :users\n"
+    end
   end
 
   #content
