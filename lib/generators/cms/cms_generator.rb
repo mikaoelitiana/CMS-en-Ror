@@ -35,6 +35,9 @@ class CmsGenerator < Rails::Generators::NamedBase
     FileUtils.cp_r 'lib/generators/cms/templates/content_wrapper_contents/','app/views/content_wrapper_contents/'
     copy_file "content_extension.rb", "app/models/content_extension.rb"
     copy_file "content_methods.rb", "app/models/content_methods.rb"
+    copy_file "free_contents_controller.rb", "app/controllers/free_contents_controller.rb"
+    copy_file "free_content.rb", "app/models/free_content.rb"
+    copy_file "create_free_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_free_contents.rb"
   end
 
   #container
@@ -42,9 +45,11 @@ class CmsGenerator < Rails::Generators::NamedBase
     copy_file "containers_controller.rb", "app/controllers/containers_controller.rb"
     copy_file "container.rb", "app/models/container.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/containers/','app/views/containers/'
+    copy_file "create_containers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_containers.rb"
     copy_file "container_contents_controller.rb", "app/controllers/container_contents_controller.rb"
     copy_file "container_content.rb", "app/models/container_content.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/container_contents/','app/views/container_contents/'
+    copy_file "create_container_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_container_contents.rb"
   end
 
   #contact
