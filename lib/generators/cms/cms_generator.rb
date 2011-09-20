@@ -12,11 +12,11 @@ class CmsGenerator < Rails::Generators::NamedBase
   def copy_user_files
     copy_file "users_controller.rb", "app/controllers/users_controller.rb"
     copy_file "user.rb", "app/models/user.rb"
-    copy_file "devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_devise_create_users.rb"
+    copy_file "devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S%L")}_devise_create_users.rb"
     line = "::Application.routes.draw do"
-    #gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-    #  "#{match}\n  devise_for :users\n"
-    #end
+    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
+      "#{match}\n  devise_for :users\n"
+    end
     line = "scope :path => \"admin\" do"
     gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
       "#{match}\n    resources :users\n"
@@ -27,17 +27,22 @@ class CmsGenerator < Rails::Generators::NamedBase
   def copy_content_files
     copy_file "content_wrappers_controller.rb", "app/controllers/content_wrappers_controller.rb"
     copy_file "content_wrapper.rb", "app/models/content_wrapper.rb"
-    copy_file "create_content_wrappers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_content_wrappers.rb"
+    copy_file "create_content_wrappers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S%L")}_create_content_wrappers.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/content_wrappers/','app/views/content_wrappers/'
     copy_file "content_wrapper_contents_controller.rb", "app/controllers/content_wrapper_contents_controller.rb"
     copy_file "content_wrapper_content.rb", "app/models/content_wrapper_content.rb"
-    copy_file "create_content_wrapper_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_content_wrapper_contents.rb"
+    copy_file "create_content_wrapper_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S%L")}_create_content_wrapper_contents.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/content_wrapper_contents/','app/views/content_wrapper_contents/'
     copy_file "content_extension.rb", "app/models/content_extension.rb"
     copy_file "content_methods.rb", "app/models/content_methods.rb"
     copy_file "free_contents_controller.rb", "app/controllers/free_contents_controller.rb"
     copy_file "free_content.rb", "app/models/free_content.rb"
-    copy_file "create_free_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_free_contents.rb"
+    copy_file "create_free_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S%L")}_create_free_contents.rb"
+    #routes
+    line = "scope :path => \"admin\" do"
+    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
+      "#{match}\n    resources :content_wrappers\n    resources :content_wrappers, :only => [ :show ] do\n      resources :content_wrapper_contents\n    end\n    resources :content_wrapper_contents, :except => [ :new, :create ]"
+    end
   end
 
   #container
@@ -45,11 +50,16 @@ class CmsGenerator < Rails::Generators::NamedBase
     copy_file "containers_controller.rb", "app/controllers/containers_controller.rb"
     copy_file "container.rb", "app/models/container.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/containers/','app/views/containers/'
-    copy_file "create_containers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_containers.rb"
+    copy_file "create_containers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S%L")}_create_containers.rb"
     copy_file "container_contents_controller.rb", "app/controllers/container_contents_controller.rb"
     copy_file "container_content.rb", "app/models/container_content.rb"
     FileUtils.cp_r 'lib/generators/cms/templates/container_contents/','app/views/container_contents/'
-    copy_file "create_container_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_container_contents.rb"
+    copy_file "create_container_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S%L")}_create_container_contents.rb"
+    #routes
+    line = "scope :path => \"admin\" do"
+    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
+      "#{match}\n    resources :container_contents, :except => [ :new, :create ]\n    resources :containers\n    resources :containers, :only => [ :show ] do\n      resources :container_contents\n    end"
+    end
   end
 
   #contact
