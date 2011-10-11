@@ -171,4 +171,9 @@ es/'
     print("Migration des schemas de base de donnees...\n")
     rake("db:migrate", :env => :development)
   end
+
+  #test
+  def copy_test_files
+    FileUtils.cp_r 'lib/generators/cms/templates/test/','test/'
+  end
 end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  origin: MyString
+  description: MyText
+  flavour: MyText
+  usage: MyText
+
+two:
+  name: MyString
+  origin: MyString
+  description: MyText
+  flavour: MyText
+  usage: MyText

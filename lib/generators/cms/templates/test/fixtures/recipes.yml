@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  level: 1
+  time: MyString
+  process: MyText
+  recommandation: MyText
+  comment: MyString
+
+two:
+  level: 1
+  time: MyString
+  process: MyText
+  recommandation: MyText
+  comment: MyString
