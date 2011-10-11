@@ -1,0 +1,5 @@
+- metatags :title => t(:new_title, :model => NavigationEntry.model_name.human)
+.action_links
+  = link_to t(:back_link), navigation_entries_path
+
+= render 'form'

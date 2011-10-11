@@ -1,28 +1,46 @@
 class CmsGenerator < Rails::Generators::NamedBase
   source_root File.expand_path('../templates', __FILE__)
   @@i = 0
-  #admin routes
-  def admin_routes
-    @@i += 1
-    line = "::Application.routes.draw do"
-    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-      "#{match}\n  scope :path => \"admin\" do\n  end"
-    end
+  #installation de tierces plugins
+  def install_3rd_party
+    print("Installation de librairies tierces...\n")
+    add_source 'http://gemcutter.org'
+    add_source "http://gems.github.com"
+    gem "devise"
+    gem 'haml'
+    gem 'haml-rails'
+    gem 'friendly_id'
+    gem 'stringex'
+    gem 'compass'
+    gem 'html5-boilerplate'
+    gem 'simple_form'
+    gem 'validation_reflection'
+    gem 'paperclip'
+    gem 'ancestry'
+    #gem 'mysql2', '~> 0.2.0'
+    #gem 'mysql2'
+    gem 'devise'
+    gem 'thinking-sphinx'
+    gem 'kaminari'
+    gem 'jquery-rails'
+    gem 'webrat', :group => :test
+    gem 'capistrano', :group => :test
+    gem 'sqlite3', :group => :test
+    gem 'mongrel', :group => :test
+    #gem 'meta_where', :git => "git://github.com/ernie/meta_where.git"
+    print("Execution de bundle install...\n")
+    run "bundle check"
+    run "bundle install"
   end
+
   #User related files
   def copy_user_files
+    print("Copie des fichiers ...\n")
     @@i += 1
     copy_file "users_controller.rb", "app/controllers/users_controller.rb"
     copy_file "user.rb", "app/models/user.rb"
     copy_file "devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_devise_create_users.rb"
-    line = "::Application.routes.draw do"
-    #gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-    #  "#{match}\n  devise_for :users\n"
-    #end
-    line = "scope :path => \"admin\" do"
-    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-      "#{match}\n    resources :users\n"
-    end
+    FileUtils.cp_r 'lib/generators/cms/templates/users/','app/views/users/'
   end
 
   #content
@@ -43,11 +61,6 @@ class CmsGenerator < Rails::Generators::NamedBase
     copy_file "free_content.rb", "app/models/free_content.rb"
     @@i += 1
     copy_file "create_free_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_free_contents.rb"
-    #routes
-    line = "scope :path => \"admin\" do"
-    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-      "#{match}\n    resources :content_wrappers\n    resources :content_wrappers, :only => [ :show ] do\n      resources :content_wrapper_contents\n    end\n    resources :content_wrapper_contents, :except => [ :new, :create ]"
-    end
   end
 
   #container
@@ -62,11 +75,6 @@ class CmsGenerator < Rails::Generators::NamedBase
     FileUtils.cp_r 'lib/generators/cms/templates/container_contents/','app/views/container_contents/'
     @@i += 1
     copy_file "create_container_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_container_contents.rb"
-    #routes
-    line = "scope :path => \"admin\" do"
-    gsub_file 'config/routes.rb', /(#{Regexp.escape(line)})/mi do |match|
-      "#{match}\n    resources :container_contents, :except => [ :new, :create ]\n    resources :containers\n    resources :containers, :only => [ :show ] do\n      resources :container_contents\n    end"
-    end
   end
 
   #contact
@@ -85,6 +93,15 @@ class CmsGenerator < Rails::Generators::NamedBase
     FileUtils.cp_r 'lib/generators/cms/templates/messages/','app/views/messages/'
   end
 
+  #navigation
+  def copy_navigation_files
+    @@i += 1
+    copy_file "navigation_entries_controller.rb", "app/controllers/navigation_entries_controller.rb"
+    copy_file "navigation_entry.rb", "app/models/navigation_entry.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/file:///home/mika/Documents/workspace/nature/app/views/navigation_entries
+es/','app/views/file:///home/mika/Documents/workspace/nature/app/views/navigation_entries
+es/'
+  end
   #misc
   def copy_misc_files
     @@i += 1
@@ -109,5 +126,49 @@ class CmsGenerator < Rails::Generators::NamedBase
   #helpers
   def copy_helpers
     directory "helpers","app/helpers"
+  end
+
+   #admin routes
+  def admin_routes
+    print("Generation des routes ...\n")
+    route("resources :messages, :only => [ :new, :create ]
+  #devise_for :users")
+    route("scope :path => \"admin\" do
+      resources :sitelinks
+      resources :illustrated_texts
+      resources :step_groups
+      resources :origins
+      resources :side_texts
+      resources :partners
+      resources :free_contents
+      resources :users
+      resources :recipes
+      resources :contacts
+      resources :product_thumbnails
+      resources :news_snippets
+      resources :products
+      resources :product_families
+      resources :header_illustrations
+      resources :navigation_entries
+      resources :users, :content_wrappers, :containers
+      resources :content_wrappers, :only => [ :show ] do
+       resources :content_wrapper_contents
+      end
+      resources :content_wrapper_contents, :except => [ :new, :create ]
+      resources :container_contents, :except => [ :new, :create ]
+      resources :containers, :only => [ :show ] do
+       resources :container_contents
+      end
+    end")
+  end
+
+  #devise
+  def install_devise
+    run("rails generate devise:install")
+  end
+  #migrate
+  def migration
+    print("Migration des schemas de base de donnees...\n")
+    rake("db:migrate", :env => :development)
   end
 end

@@ -1,0 +1,6 @@
+- navigation_entry ||= nil
+- if navigation_entry
+  = render :partial => 'navigation_entries/navigation_entry', :locals => { :navigation_entry => navigation_entry, :children => children }
+- else
+  - children.each do |child, child_children|
+    = render :partial => 'navigation_entries/navigation_entry', :locals => { :navigation_entry => child, :children => child_children }
