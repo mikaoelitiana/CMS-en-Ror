@@ -1,0 +1,6 @@
+- metatags :title => t(:edit_title, :model => @container.name)
+.action_links
+  = link_to t(:show_link), @container
+  = link_to t(:back_link), containers_path
+
+= render 'form'

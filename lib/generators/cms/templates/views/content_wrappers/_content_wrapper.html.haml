@@ -1,0 +1,11 @@
+- if dark_side?
+  %article
+    %dl
+      %dt= ContentWrapper.human_attribute_name 'name'
+      %dd= content_wrapper.name
+      %dt= ContentWrapper.human_attribute_name 'tags'
+      %dd= content_wrapper.tags
+    .action_links
+      = link_to t(:show_link), content_wrapper
+      = link_to t(:edit_link), edit_content_wrapper_path(content_wrapper)
+      = link_to t(:destroy_link), content_wrapper, :confirm => t(:confirm_destroy_message), :method => :delete

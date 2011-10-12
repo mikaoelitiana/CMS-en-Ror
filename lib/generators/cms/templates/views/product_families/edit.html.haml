@@ -1,0 +1,6 @@
+- metatags :title => t(:edit_title, :model => @product_family.name)
+.action_links
+  = link_to t(:show_link), @product_family
+  = link_to t(:back_link), product_families_path
+
+= render 'form'

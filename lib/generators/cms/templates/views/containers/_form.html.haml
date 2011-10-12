@@ -1,0 +1,22 @@
+= simple_form_for(@container) do |f|
+  - if @container.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@container.errors.count, "error")
+        prohibited this container from being saved:
+
+      %ul
+      - @container.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+    = f.input :name
+    = f.input :title
+    = f.input :browser_title
+    = f.input :subtitle
+    = f.input :keywords
+    = f.input :description
+    = f.input :layout, :as => :select, :collection => [["Par défaut", "default"]]
+
+  .actions
+    = f.button :submit

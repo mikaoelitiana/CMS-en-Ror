@@ -37,94 +37,99 @@ class CmsGenerator < Rails::Generators::NamedBase
   def copy_user_files
     print("Copie des fichiers ...\n")
     @@i += 1
-    copy_file "users_controller.rb", "app/controllers/users_controller.rb"
-    copy_file "user.rb", "app/models/user.rb"
-    copy_file "devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_devise_create_users.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/users/','app/views/users/'
+    copy_file "controllers/users_controller.rb", "app/controllers/users_controller.rb"
+    copy_file "models/user.rb", "app/models/user.rb"
+    copy_file "migrate/devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_devise_create_users.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/users/','app/views/users/'
   end
 
   #content
   def copy_content_files
     @@i += 1
-    copy_file "content_wrappers_controller.rb", "app/controllers/content_wrappers_controller.rb"
-    copy_file "content_wrapper.rb", "app/models/content_wrapper.rb"
-    copy_file "create_content_wrappers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_content_wrappers.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/content_wrappers/','app/views/content_wrappers/'
+    copy_file "controllers/content_wrappers_controller.rb", "app/controllers/content_wrappers_controller.rb"
+    copy_file "models/content_wrapper.rb", "app/models/content_wrapper.rb"
+    copy_file "migrate/create_content_wrappers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_content_wrappers.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/content_wrappers/','app/views/content_wrappers/'
     @@i += 1
-    copy_file "content_wrapper_contents_controller.rb", "app/controllers/content_wrapper_contents_controller.rb"
-    copy_file "content_wrapper_content.rb", "app/models/content_wrapper_content.rb"
-    copy_file "create_content_wrapper_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_content_wrapper_contents.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/content_wrapper_contents/','app/views/content_wrapper_contents/'
-    copy_file "content_extension.rb", "app/models/content_extension.rb"
-    copy_file "content_methods.rb", "app/models/content_methods.rb"
-    copy_file "free_contents_controller.rb", "app/controllers/free_contents_controller.rb"
-    copy_file "free_content.rb", "app/models/free_content.rb"
+    copy_file "controllers/content_wrapper_contents_controller.rb", "app/controllers/content_wrapper_contents_controller.rb"
+    copy_file "models/content_wrapper_content.rb", "app/models/content_wrapper_content.rb"
+    copy_file "migrate/create_content_wrapper_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_content_wrapper_contents.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/content_wrapper_contents/','app/views/content_wrapper_contents/'
+    copy_file "models/content_extension.rb", "app/models/content_extension.rb"
+    copy_file "models/content_methods.rb", "app/models/content_methods.rb"
+    copy_file "controllers/free_contents_controller.rb", "app/controllers/free_contents_controller.rb"
+    copy_file "models/free_content.rb", "app/models/free_content.rb"
     @@i += 1
-    copy_file "create_free_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_free_contents.rb"
+    copy_file "migrate/create_free_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_free_contents.rb"
   end
 
   #container
   def copy_container_files
-    copy_file "containers_controller.rb", "app/controllers/containers_controller.rb"
-    copy_file "container.rb", "app/models/container.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/containers/','app/views/containers/'
+    copy_file "controllers/containers_controller.rb", "app/controllers/containers_controller.rb"
+    copy_file "models/container.rb", "app/models/container.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/containers/','app/views/containers/'
     @@i += 1
-    copy_file "create_containers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_containers.rb"
-    copy_file "container_contents_controller.rb", "app/controllers/container_contents_controller.rb"
-    copy_file "container_content.rb", "app/models/container_content.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/container_contents/','app/views/container_contents/'
+    copy_file "migrate/create_containers.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_containers.rb"
+    copy_file "controllers/container_contents_controller.rb", "app/controllers/container_contents_controller.rb"
+    copy_file "models/container_content.rb", "app/models/container_content.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/container_contents/','app/views/container_contents/'
     @@i += 1
-    copy_file "create_container_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_container_contents.rb"
+    copy_file "migrate/create_container_contents.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}#{@@i}_create_container_contents.rb"
   end
 
   #contact
   def copy_contact_files
     @@i += 1
-    copy_file "contacts_controller.rb", "app/controllers/contacts_controller.rb"
-    copy_file "contact.rb", "app/models/contact.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/contacts/','app/views/contacts/'
+    copy_file "controllers/contacts_controller.rb", "app/controllers/contacts_controller.rb"
+    copy_file "models/contact.rb", "app/models/contact.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/contacts/','app/views/contacts/'
   end
 
   #messages
   def copy_message_files
     @@i += 1
-    copy_file "messages_controller.rb", "app/controllers/messages_controller.rb"
-    copy_file "message.rb", "app/models/message.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/messages/','app/views/messages/'
+    copy_file "controllers/messages_controller.rb", "app/controllers/messages_controller.rb"
+    copy_file "models/message.rb", "app/models/message.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/messages/','app/views/messages/'
   end
 
   #navigation
   def copy_navigation_files
     @@i += 1
-    copy_file "navigation_entries_controller.rb", "app/controllers/navigation_entries_controller.rb"
-    copy_file "navigation_entry.rb", "app/models/navigation_entry.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/file:///home/mika/Documents/workspace/nature/app/views/navigation_entries
-es/','app/views/file:///home/mika/Documents/workspace/nature/app/views/navigation_entries
-es/'
+    copy_file "controllers/navigation_entries_controller.rb", "app/controllers/navigation_entries_controller.rb"
+    copy_file "models/navigation_entry.rb", "app/models/navigation_entry.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/navigation_entries/','app/views/navigation_entries/'
   end
   #misc
   def copy_misc_files
     @@i += 1
-    copy_file "misc_controller.rb", "app/controllers/misc_controller.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/misc/','app/views/misc/'
+    copy_file "controllers/misc_controller.rb", "app/controllers/misc_controller.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/misc/','app/views/misc/'
   end
 
   #products
   def copy_product_files
     @@i += 1
-    copy_file "products_controller.rb", "app/controllers/products_controller.rb"
-    copy_file "product.rb", "app/models/product.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/products/','app/views/products/'
-    copy_file "product_families_controller.rb", "app/controllers/product_families_controller.rb"
-    copy_file "product_family.rb", "app/models/product_family.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/product_families/','app/views/product_families/'
-    copy_file "product_thumbnails_controller.rb", "app/controllers/product_thumbnails_controller.rb"
-    copy_file "product_thumbnail.rb", "app/models/product_thumbnail.rb"
-    FileUtils.cp_r 'lib/generators/cms/templates/product_thumbnails/','app/views/product_thumbnails/'
+    copy_file "controllers/products_controller.rb", "app/controllers/products_controller.rb"
+    copy_file "models/product.rb", "app/models/product.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/products/','app/views/products/'
+    copy_file "controllers/product_families_controller.rb", "app/controllers/product_families_controller.rb"
+    copy_file "models/product_family.rb", "app/models/product_family.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/product_families/','app/views/product_families/'
+    copy_file "controllers/product_thumbnails_controller.rb", "app/controllers/product_thumbnails_controller.rb"
+    copy_file "models/product_thumbnail.rb", "app/models/product_thumbnail.rb"
+    FileUtils.cp_r 'lib/generators/cms/templates/views/product_thumbnails/','app/views/product_thumbnails/'
+  end
+
+  #main app
+  def copy_application_files
+    @@i += 1
+    copy_file "controllers/application_controller.rb", "app/controllers/application_controller.rb"
   end
 
   #helpers
   def copy_helpers
+    print("Extraction des fichiers helpers...\n")
     directory "helpers","app/helpers"
   end
 
@@ -164,16 +169,25 @@ es/'
 
   #devise
   def install_devise
+    print("Initialisation de devise...\n")
     run("rails generate devise:install")
   end
+
   #migrate
   def migration
     print("Migration des schemas de base de donnees...\n")
     rake("db:migrate", :env => :development)
   end
 
+  #git
+  def create_git_repo
+    print("Initialisation d'un répertoire git'...\n")
+    run ("git init")
+  end
+
   #test
   def copy_test_files
-    FileUtils.cp_r 'lib/generators/cms/templates/test/','test/'
+    print("Extraction des fichiers de test...\n")
+    FileUtils.cp_r 'lib/generators/cms/templates/test','test'
   end
 end

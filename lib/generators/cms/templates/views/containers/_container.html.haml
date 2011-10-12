@@ -1,0 +1,18 @@
+%article[container]{ :class => "partial #{cycle("odd", "even")}" }
+  %header
+    %p== [#{Container.model_name.human}]
+  %div.content
+    %h2= container.name
+    %h3= container.title
+    %h4= container.subtitle
+    = simple_format container.description
+    %p= container.keywords
+    %p== Ce conteneur contient #{container.container_contents.count} élément(s)
+    - if container.container_contents.count > 0
+      %ul
+        - container.container_contents.each do |cc|
+          %li= link_to cc.content.name, cc.content
+  .action_links
+    = link_to t(:show_link), container
+    = link_to t(:edit_link), edit_container_path(container)
+    = link_to t(:destroy_link), container, :confirm => t(:confirm_destroy_message), :method => :delete

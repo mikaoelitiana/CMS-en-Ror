@@ -1,0 +1,9 @@
+- if dark_side?
+  - metatags :title => t(:index_title, :model => Container.model_name.human)
+  .action_links
+    = link_to t(:new_link, :model => Container.model_name.human), new_container_path
+  .containers
+    = render @containers
+
+- else
+  Non implémenté.

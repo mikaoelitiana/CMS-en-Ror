@@ -1,0 +1,27 @@
+= simple_form_for(@product, :html => { :multipart => true }) do |f|
+  - if @product.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@product.errors.count, "error")
+        prohibited this product from being saved:
+
+      %ul
+      - @product.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+    = f.association :product_family
+    = f.input :name
+    = f.input :short_description, :hint => "Affichée comme sous titre"
+    = f.association :origin
+    = f.input :description
+    = f.input :flavour
+    = f.input :usage
+    =# f.input :illustration
+    =# f.input :diaporama
+    = f.input :small_square, :hint => "Petite vignette: 150x148"
+    = f.input :big_square, :hint => "Affichée sur la page: 380x375"
+    = f.input :big_image, :hint => "Si présent, le produit sera visible dans le diaporama: 760x505"
+    = f.association :partner
+  .actions
+    = f.button :submit

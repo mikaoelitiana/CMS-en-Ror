@@ -1,0 +1,6 @@
+%div[product]{ :class => "thumbnail family" }
+  = image_tag(product.small_square.url, :alt => product.name)
+  %h6.product_name
+    = product.name
+  %p
+    = link_to 'Lire la fiche', public_product_path(product)

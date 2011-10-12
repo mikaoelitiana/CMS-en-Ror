@@ -1,0 +1,6 @@
+- metatags :title => t(:edit_title, :model => @navigation_entry.name)
+.action_links
+  = link_to t(:show_link), @navigation_entry
+  = link_to t(:back_link), navigation_entries_path
+
+= render 'form'

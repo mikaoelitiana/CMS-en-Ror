@@ -1,0 +1,16 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => ProductThumbnail.model_name.human, :name => @product_thumbnail.name)
+  .action_links
+    = link_to t(:back_link), product_thumbnails_path
+    = link_to t(:edit_link, :model => ProductThumbnail.model_name.human), edit_product_thumbnail_path(@product_thumbnail)
+    = link_to t(:destroy_link, :model => ProductThumbnail.model_name.human), @product_thumbnail, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin
+    %dt= ProductThumbnail.human_attribute_name 'name'
+    %dd= @product_thumbnail.name
+    %dt= ProductThumbnail.human_attribute_name 'title'
+    %dd= @product_thumbnail.title
+    %dt= Product.model_name.human
+    %dd= link_to @product_thumbnail.product.name, @product_thumbnail.product
+  %div
+    = image_tag(@product_thumbnail.image.url)
+

@@ -1,0 +1,12 @@
+- metatags :title => "Bienvenue", :browser_title => "La gourmandise commence par les yeux"
+- content_for :javascripts do
+  :javascript
+    $(function(){
+      $("#products_slide").slides({
+        preloadImage: true,
+        generatePagination: false
+      });
+    });
+#products_slide
+  .slides_container
+    = render :partial => "products/public/big_image", :collection => @products_big_images, :as => :product

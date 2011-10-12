@@ -1,0 +1,10 @@
+%div[product_family]
+  %h3= link_to(product_family.name, public_product_family_path(product_family))
+  %div
+    .illustration
+      %p= image_tag(product_family.products.first.small_square.url)
+    .products
+      %ul
+        - product_family.products.each do |product|
+          %li= link_to product.name, public_product_path(product_family, product)
+

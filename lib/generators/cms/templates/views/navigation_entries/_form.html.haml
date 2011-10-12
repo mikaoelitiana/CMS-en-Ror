@@ -1,0 +1,26 @@
+- known_actions = NavigationEntry::KnownActions
+- known_actions[@navigation_entry.name] = @navigation_entry.action unless known_actions.keys.include?(@navigation_entry.action)
+= simple_form_for(@navigation_entry) do |f|
+  - if @navigation_entry.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@navigation_entry.errors.count, "error")
+        prohibited this navigation_entry from being saved:
+
+      %ul
+      - @navigation_entry.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+    = f.input :parent_id, :as => :select, :collection => (NavigationEntry.all(:order => :full_name) - [@navigation_entry] ).map { |n| [ n.full_name, n[:id] ] }
+    = f.input :name, :hint => "Usage interne seulement (pour faciliter la recherche)"
+    = f.input :text, :hint => "Texte affiché sur le lien"
+    = f.input :title, :hint => "Sera affiché comme un 'tooltip', utile pour le référencement"
+    = f.input :action, :collection => known_actions, :hint => "Fonction du site"
+    = f.association :container, :hint => "Contenant (mise en page)"
+    = f.input :url, :hint => "Souvent un lien externe de type http://exemple.com"
+    = f.input :position, :as => :select, :collection => 0..20
+    = f.input :visible
+
+  .actions
+    = f.button :submit

@@ -1,0 +1,27 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => NavigationEntry.model_name.human, :name => @navigation_entry.name)
+  .action_links
+    = link_to t(:back_link), navigation_entries_path
+    = link_to t(:edit_link, :model => NavigationEntry.model_name.human), edit_navigation_entry_path(@navigation_entry)
+    = link_to t(:destroy_link, :model => NavigationEntry.model_name.human), @navigation_entry, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin
+    - if @navigation_entry.parent
+      %dt= NavigationEntry.human_attribute_name 'parent'
+      %dd= link_to @navigation_entry.parent.full_name, @navigation_entry.parent
+    %dt= NavigationEntry.human_attribute_name 'name'
+    %dd= @navigation_entry.name
+    %dt= NavigationEntry.human_attribute_name 'text'
+    %dd= @navigation_entry.text
+    %dt= NavigationEntry.human_attribute_name 'title'
+    %dd= @navigation_entry.title
+    - if @navigation_entry.container
+      %dt= NavigationEntry.human_attribute_name 'container_id'
+      %dd= link_to @navigation_entry.container.name, @navigation_entry
+    - if @navigation_entry.url && !@navigation_entry.url.empty?
+      %dt= NavigationEntry.human_attribute_name 'url'
+      %dd= @navigation_entry.url
+    %dt= NavigationEntry.human_attribute_name 'position'
+    %dd= @navigation_entry.position
+- else
+  - metatags :title => @navigation_entry.parent.text, :browser_title => "#{@navigation_entry.text} | #{@navigation_entry.parent.text}", :keywords => @container.keywords, :description => @container.description, :baseline => @navigation_entry.text
+  =# render :partial => "containers/public/#{@container.layout}", :locals => { :container => @container }

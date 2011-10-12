@@ -1,0 +1,35 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => Contact.model_name.human, :name => @contact.name)
+  .action_links
+    = link_to t(:back_link), contacts_path
+    = link_to t(:edit_link, :model => Contact.model_name.human), edit_contact_path(@contact)
+    = link_to t(:destroy_link, :model => Contact.model_name.human), @contact, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin
+    %dt= Contact.human_attribute_name 'title'
+    %dd= @contact.title
+    %dt= Contact.human_attribute_name 'name'
+    %dd= @contact.name
+    %dt= Contact.human_attribute_name 'family_name'
+    %dd= @contact.family_name
+    %dt= Contact.human_attribute_name 'compagny_name'
+    %dd= @contact.compagny_name
+    %dt= Contact.human_attribute_name 'country'
+    %dd= @contact.country
+    %dt= Contact.human_attribute_name 'phone_number'
+    %dd= @contact.phone_number
+    %dt= Contact.human_attribute_name 'mail_adress'
+    %dd= @contact.mail_adress
+    %dt= Contact.human_attribute_name 'object'
+    %dd= @contact.object
+    %dt= Contact.human_attribute_name 'message'
+    %dd= @contact.message
+    %dt= Contact.human_attribute_name 'fax'
+    %dd= @contact.fax
+    %dt= Contact.human_attribute_name 'street'
+    %dd= @contact.street
+    %dt= Contact.human_attribute_name 'zip'
+    %dd= @contact.zip
+    %dt= Contact.human_attribute_name 'city'
+    %dd= @contact.city
+    %dt= Contact.human_attribute_name 'logo Contact'
+    %dd= image_tag(@contact.logo_contact.url)

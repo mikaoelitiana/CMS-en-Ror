@@ -1,0 +1,12 @@
+- metatags :baseline => "Les résultats de votre recherche", :sub_baseline => "Requete: #{params[:q]}", :title => "Recherche nature"
+
+.results
+  %p= "Votre recherche a retourné #{pluralize(@results.count, "résultat")}"
+
+  - unless @results.empty?
+    %ol
+      - @results.each do |result|
+        - if result.is_a? Product
+          %li= link_to "#{result.name} (#{Product.model_name.human} nature)", public_product_path(result.product_family, result)
+        - elsif result.is_a? Recipe
+          %li= link_to "#{result.name} (#{Recipe.model_name.human} nature)", public_recipe_path(result)
