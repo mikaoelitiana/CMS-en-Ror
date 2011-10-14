@@ -173,6 +173,17 @@ class CmsGenerator < Rails::Generators::NamedBase
     run("rails generate devise:install")
   end
 
+  #application_controller
+  def application_config
+    print("Configuration de l'application...'")
+    application do
+      "config.generators do |g|
+      g.template_engine :haml
+    end"
+      "config.time_zone = 'Paris'"
+    end
+  end
+
   #migrate
   def migration
     print("Migration des schemas de base de donnees...\n")
@@ -182,7 +193,9 @@ class CmsGenerator < Rails::Generators::NamedBase
   #git
   def create_git_repo
     print("Initialisation d'un répertoire git'...\n")
-    run ("git init")
+    git :init
+    git :add => "."
+    git :commit => "-m 'Installation du Système de Publication'"
   end
 
   #test
