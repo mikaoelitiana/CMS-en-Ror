@@ -1,0 +1,46 @@
+- metatags :title => "Contact"
+#contact_nature
+  -#.logo_contact
+    -#= image_tag('layout/logo.jpg')
+  %ul.contact_detail
+    %li
+      NATURE SAS
+    %li
+      29, rue de Billancourt
+    %li
+      BOULOGNE
+    %li
+      92100 FRANCE
+    %li
+      Tél. 01 46 04 70 41
+    %li
+      Fax. 01 46 04 92 91
+    %li= mail_to "contact@nature-sas.fr", nil, :encode => :javascript, :replace_at => "<span class='hidden'>&nbsp;</span>@".html_safe, :replace_dot => "<span class='hidden'>&nbsp;</span>.".html_safe
+
+#form_contact
+  = simple_form_for(@message, :html => { :multipart => true }) do |f|
+    - if @message.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@product.errors.count, "error")
+          prohibited this product from being saved:
+
+        %ul
+        - @product.errors.full_messages.each do |msg|
+          %li= msg
+
+    .newsletter
+      = f.input :newsletter_subscription, :label => "Je m'inscris à la newsletter.", :as => :boolean
+    .inputs
+      = f.input :sender_civility, :as => :radio, :collection => Message::Civilities
+      = f.input :sender_lastname
+      = f.input :sender_firstname
+      = f.input :sender_organisation
+      = f.input :sender_country, :as => :string
+      = f.input :sender_phone
+      = f.input :sender_email
+      = f.input :sender_email_confirmation, :as => :hidden
+      = f.input :subject
+      = f.input :content, :as => :text, :cols => 50
+    .submit
+      = f.button :submit, "Envoyer"

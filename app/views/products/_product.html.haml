@@ -1,0 +1,22 @@
+- if dark_side?
+  %article[product]{ :class => "partial illustrated #{cycle("odd", "even")}" }
+    %header
+      %p== [#{Product.model_name.human}]
+    .illustration
+      = image_tag(product.small_square.url) if product.small_square.exists?
+    .content
+      %h2= product.name
+      %dl
+        %dt= Product.human_attribute_name("description")
+        %dd= simple_format product.description
+    .action_links
+      = link_to t(:show_link), product
+      = link_to t(:edit_link), edit_product_path(product)
+      = link_to t(:destroy_link), product, :confirm => t(:confirm_destroy_message), :method => :delete
+- else
+  %div[product]{ :class => "thumbnail" }
+    = image_tag(product.small_square.url, :width => 150, :height => 148)
+    %p.product_name
+      = product.name
+    %p
+      = link_to("Lire la fiche", public_product_path(product.product_family, product))

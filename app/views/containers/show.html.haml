@@ -1,0 +1,27 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => Container.model_name.human, :name => @container.name)
+  .action_links
+    = link_to t(:add_container_content, :container => @container.name), new_polymorphic_path([@container, @container.container_contents.new])
+    = link_to t(:back_link), containers_path
+    = link_to t(:edit_link, :model => Container.model_name.human), edit_container_path(@container)
+    = link_to t(:destroy_link, :model => Container.model_name.human), @container, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin
+    %dt= Container.human_attribute_name "name"
+    %dd= @container.name
+    %dt= Container.human_attribute_name "browser_title"
+    %dd= @container.browser_title
+    %dt= Container.human_attribute_name "title"
+    %dd= @container.title
+    %dt= Container.human_attribute_name "subtitle"
+    %dd= @container.subtitle
+    %dt= Container.human_attribute_name "keywords"
+    %dd= @container.keywords
+    %dt= Container.human_attribute_name "description"
+    %dd= @container.description
+  - unless @container.container_contents.empty?
+    .contents
+      = render @container.container_contents
+
+- else
+  - metatags :title => @container.title, :browser_title => @container.browser_title, :keywords => @container.keywords, :description => @container.description, :baseline => @container.subtitle
+  = render :partial => "containers/public/#{@container.layout}", :locals => { :container => @container }

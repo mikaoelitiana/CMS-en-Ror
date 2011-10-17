@@ -1,0 +1,6 @@
+- metatags :title => t(:edit_title, :model => @contact.name)
+.action_links
+  = link_to t(:show_link), @contact
+  = link_to t(:back_link), contacts_path
+
+= render 'form'

@@ -29,19 +29,7 @@ CMSRoR::Application.routes.draw do
       end
     end
 
-  scope :path => "admin" do
-      resources :users, :content_wrappers, :containers
-      resources :content_wrappers, :only => [ :show ] do
-       resources :content_wrapper_contents
-      end
-      resources :content_wrapper_contents, :except => [ :new, :create ]
-      resources :container_contents, :except => [ :new, :create ]
-      resources :containers, :only => [ :show ] do
-       resources :container_contents
-      end
-    end
-
   resources :messages, :only => [ :new, :create ]
-  #devise_for :users
+  devise_for :users
 
 end

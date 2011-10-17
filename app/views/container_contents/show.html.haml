@@ -1,0 +1,17 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => ContainerContent.model_name.human, :name => "#{@container_content.container.name}/#{@container_content.content.name}")
+  .action_links
+    = link_to t(:back_link), container_contents_path
+    = link_to t(:edit_link, :model => ContainerContent.model_name.human), edit_container_content_path(@container_content)
+    = link_to t(:destroy_link, :model => ContainerContent.model_name.human), @container_content, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin
+    %dt= ContainerContent.human_attribute_name 'content_id'
+    %dd= @container_content.content_id
+    %dt= ContainerContent.human_attribute_name 'content_type'
+    %dd= @container_content.content_type
+    %dt= ContainerContent.human_attribute_name 'container_id'
+    %dd= @container_content.container_id
+    %dt= ContainerContent.human_attribute_name 'content_view'
+    %dd= @container_content.content_view
+    %dt= ContainerContent.human_attribute_name 'position'
+    %dd= @container_content.position

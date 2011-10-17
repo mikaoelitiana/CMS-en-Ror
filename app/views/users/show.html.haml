@@ -1,0 +1,13 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => User.model_name.human, :name => @user.name)
+  .action_links
+    = link_to t(:back_link), users_path
+    = link_to t(:edit_link, :model => User.model_name.human), edit_user_path(@user)
+    = link_to t(:destroy_link, :model => User.model_name.human), @user, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin
+    %dt= User.human_attribute_name 'first_name'
+    %dd= @user.first_name
+    %dt= User.human_attribute_name 'last_name'
+    %dd= @user.last_name
+    %dt= User.human_attribute_name 'email'
+    %dd= @user.email

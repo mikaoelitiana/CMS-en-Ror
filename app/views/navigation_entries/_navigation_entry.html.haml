@@ -1,0 +1,15 @@
+- if dark_side?
+  - children ||= nil
+  %article[navigation_entry]{ :class => "partial depth_#{navigation_entry.depth}" }
+    .action_links
+      = link_to t(:show_link), navigation_entry
+      = link_to t(:edit_link), edit_navigation_entry_path(navigation_entry)
+      = link_to t(:destroy_link), navigation_entry, :confirm => t(:confirm_destroy_message), :method => :delete
+    .content
+      %h3{ :title => navigation_entry.name}= navigation_entry.text
+    - if children && !children.empty?
+      .children
+        = render :partial => 'navigation_entries/ordered_navigation_entries', :locals => { :children => children }
+
+- else
+  = render :partial => 'navigation_entries/public/navigation_entry', :locals => { :navigation_entry => navigation_entry }

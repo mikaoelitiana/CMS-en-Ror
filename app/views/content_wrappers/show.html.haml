@@ -1,0 +1,16 @@
+- metatags :title => @content_wrapper.name
+.action_links
+  = link_to t(:edit_link), edit_content_wrapper_path(@content_wrapper)
+  = link_to t(:back_link), content_wrappers_path
+  = link_to t(:add_container_content, :container => @content_wrapper.name), new_polymorphic_path([@content_wrapper, ContentWrapperContent])
+
+.attribute
+  %strong= "#{ContentWrapper.human_attribute_name 'name'}:"
+  = @content_wrapper.name
+.attribute
+  %strong= "#{ContentWrapper.human_attribute_name 'tags'}:"
+  = @content_wrapper.tags
+
+- unless @content_wrapper.content_wrapper_contents.empty?
+  .contents
+    = render @content_wrapper.content_wrapper_contents

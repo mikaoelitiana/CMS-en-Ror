@@ -1,0 +1,6 @@
+- if dark_side?
+  - metatags :title => t(:index_title, :model => Contact.model_name.human)
+  .action_links
+    = link_to t(:new_link, :model => Contact.model_name.human), new_contact_path
+  .contacts
+    = render @contacts

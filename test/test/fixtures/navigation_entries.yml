@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  full_name: MyString
+  text: MyString
+  title: MyString
+  container_id: 1
+  url: MyString
+  ancestry: MyString
+  ancestry_depth: 1
+  position: 1
+
+two:
+  name: MyString
+  full_name: MyString
+  text: MyString
+  title: MyString
+  container_id: 1
+  url: MyString
+  ancestry: MyString
+  ancestry_depth: 1
+  position: 1

@@ -1,0 +1,26 @@
+<% 
+    for_memu ||= false
+    my_tag ||= :li
+    my_children_tag ||= :ul
+    max_index ||= -1
+    navigation_entry_counter ||= -1
+    index ||= navigation_entry_counter
+    css_class = []
+    id = nil
+    if for_memu
+      id = "nav-#{navigation_entry.name.to_url}"
+      css_class << "memu-root" if navigation_entry.ancestry_depth <= 1
+      css_class << "has-children" unless navigation_entry.children.empty?
+      css_class << "current" if current_navigation_entry?(navigation_entry)
+      css_class << "first_item" if max_index > 0 && index == 0
+      css_class << "last_item" if max_index > 0 && index == max_index
+    end
+%>
+<%= content_tag my_tag, :id => id, :class => (css_class.join(" ").blank? ? nil : css_class.join(" ")) do %>
+  <%= generated_link_to(navigation_entry) %>
+  <% if navigation_entry.depth >= 1 && !navigation_entry.children.empty? %>
+    <%= content_tag my_children_tag do %>
+      <%= render :partial => 'navigation_entries/public/navigation_entry', :collection => navigation_entry.children.visible.all(:order => [ :full_name ]), :locals => { :for_memu => for_memu } %>
+    <% end %>
+  <% end %>
+<% end %>

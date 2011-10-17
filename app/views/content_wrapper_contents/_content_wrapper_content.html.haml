@@ -1,0 +1,19 @@
+- if dark_side?
+  %div[content_wrapper_content]{ :class => "partial #{cycle("odd", "even")}" }
+    %dl
+      - unless @content_wrapper
+        %dt= ContentWrapperContent.human_attribute_name 'content_wrapper'
+        %dd= link_to(content_wrapper_content.content_wrapper.name, content_wrapper_content.content_wrapper)
+      %dt= ContentWrapperContent.human_attribute_name 'content'
+      %dd= link_to content_wrapper_content.content.name, content_wrapper_content.content
+      %dt= ContentWrapperContent.human_attribute_name 'tags'
+      %dd= content_wrapper_content.tags
+      %dt= ContentWrapperContent.human_attribute_name 'position'
+      %dd= content_wrapper_content.position
+
+    .action_links
+      = link_to t(:remove_from_container), content_wrapper_content, :confirm => t(:confirm_destroy_message), :method => :delete
+- else
+  = surround(content_wrapper_content.for_surround.first, content_wrapper_content.for_surround.last) do
+    = render :partial => "#{content_wrapper_content.content_type.tableize}/public/#{content_wrapper_content.content_view}", :locals => { :"#{content_wrapper_content.content_type.tableize.singularize}" => content_wrapper_content.content }
+

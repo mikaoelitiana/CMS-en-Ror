@@ -1,0 +1,12 @@
+- if dark_side?
+  - metatags :title => t(:index_title, :model => NavigationEntry.model_name.human)
+  .action_links
+    = link_to t(:new_link, :model => NavigationEntry.model_name.human), new_navigation_entry_path
+  .navigation_entries
+    = render :partial => 'navigation_entries/ordered_navigation_entries', :locals => { :children => @ordered_navigation_entries }
+- else
+  - metatags :title => "Plan du site"
+  %ul
+    = render :partial => 'navigation_entries/public/navigation_entry', :collection => NavigationEntry.to_depth(1).all(:order => [:ancestry_depth, :position])
+
+

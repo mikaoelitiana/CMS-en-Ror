@@ -1,0 +1,54 @@
+- if dark_side?
+  - metatags :title => t(:show_title, :model => Product.model_name.human, :name => @product.name)
+  .action_links
+    = link_to t(:back_link), products_path
+    = link_to t(:edit_link, :model => Product.model_name.human), edit_product_path(@product)
+    = link_to t(:destroy_link, :model => Product.model_name.human), @product, :method => :delete, :confirm => t(:confirm_destroy_message)
+  %dl.admin.left
+    %dt= Product.human_attribute_name 'name'
+    %dd= @product.name
+    %dt= Product.human_attribute_name 'short_description'
+    %dd= @product.short_description
+    - if @product.origin
+      %dt= Product.human_attribute_name 'origin'
+      %dd= @product.origin
+    %dt= Product.human_attribute_name 'description'
+    %dd= @product.description
+    %dt= Product.human_attribute_name 'flavour'
+    %dd= @product.flavour
+    %dt= Product.human_attribute_name 'usage'
+    %dd= @product.usage
+  .right
+    = image_tag(@product.small_image.url) if @product.small_image.exists?
+    = image_tag(@product.small_square.url) if @product.small_square.exists?
+  .views.clear
+    = image_tag(@product.big_image.url) if @product.big_image.exists?
+    = image_tag(@product.big_square.url) if @product.big_square.exists?
+- else
+  - metatags :title => @product.name, :subtitle => @product.short_description
+
+  .left_side
+    .illustration
+      = image_tag(@product.big_square.url) if @product.big_square.exists?
+    .description
+      %h3= Product.human_attribute_name 'description'
+      = simple_format @product.description
+  .right_side
+    - if @product.origin
+      .planisphere
+        = image_tag(@product.origin.planisphere.url, :width => 370, :height => 220)
+      %h3= Product.human_attribute_name 'origin'
+      = simple_format @product.origin.name
+    %h3= Product.human_attribute_name 'flavour'
+    = simple_format @product.flavour
+    %h3= Product.human_attribute_name 'usage'
+    = simple_format @product.usage
+    - unless @product.recipes.empty?
+      %h3 Quelques recettes
+      %p
+        == #{@product.recipes.map { |r| link_to(r.name, public_recipe_path(r)) }.to_sentence.html_safe}.
+  .actions
+    %ul
+      = render :partial => 'shared/addthis'
+      %li= link_to "Voir les autres produits", public_product_family_path(@product.product_family), :id => "products_link"
+      %li= link_to "Voir la nouveauté nature", last_recipe_path, :id => "recipes_link"

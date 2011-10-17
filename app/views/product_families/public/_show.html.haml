@@ -1,0 +1,6 @@
+- if product_family.products.empty?
+  - product_family.children.each do |product_family|
+    = render :partial => 'product_families/public/all', :locals => { :product_family => product_family }
+- else
+  .products
+    = render product_family.products

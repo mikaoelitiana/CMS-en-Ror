@@ -1,0 +1,28 @@
+= simple_form_for(@contact) do |f|
+  - if @contact.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@contact.errors.count, "error")
+        prohibited this contact from being saved:
+
+      %ul
+      - @contact.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+    = f.input :title
+    = f.input :name
+    = f.input :civil_status, :collection => [' Melle',' Mme',' M'], :as => :radio
+    = f.input :family_name
+    = f.input :compagny_name
+    = f.input :phone_number
+    = f.input :mail_adress
+    = f.input :object
+    = f.input :message
+    = f.input :fax
+    = f.input :street
+    = f.input :zip
+    = f.input :city
+    = f.input :logo_contact
+  .actions
+    = f.button :submit

@@ -57,6 +57,8 @@ class CmsGenerator < Rails::Generators::NamedBase
     FileUtils.cp_r 'lib/generators/cms/templates/views/content_wrapper_contents/','app/views/content_wrapper_contents/'
     copy_file "models/content_extension.rb", "app/models/content_extension.rb"
     copy_file "models/content_methods.rb", "app/models/content_methods.rb"
+    copy_file "models/content.rb", "app/models/content.rb"
+    copy_file "models/content_wrapper_methods.rb", "app/models/content_wrapper_methods.rb"
     copy_file "controllers/free_contents_controller.rb", "app/controllers/free_contents_controller.rb"
     copy_file "models/free_content.rb", "app/models/free_content.rb"
     @@i += 1
@@ -137,7 +139,7 @@ class CmsGenerator < Rails::Generators::NamedBase
   def admin_routes
     print("Generation des routes ...\n")
     route("resources :messages, :only => [ :new, :create ]
-  #devise_for :users")
+  devise_for :users")
     route("scope :path => \"admin\" do
       resources :sitelinks
       resources :illustrated_texts

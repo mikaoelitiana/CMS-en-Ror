@@ -1,0 +1,17 @@
+= simple_form_for(@content_wrapper) do |f|
+  - if @content_wrapper.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@content_wrapper.errors.count, "error")
+        prohibited this content_wrapper from being saved:
+
+      %ul
+      - @content_wrapper.errors.full_messages.each do |msg|
+        %li= msg
+
+  .inputs
+    = f.input :name
+    = f.input :tags, :hint => "div#id.class.class &gt span"
+
+  .actions
+    = f.button :submit

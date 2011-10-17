@@ -1,0 +1,12 @@
+%article[product_family]{ :class => "partial #{cycle("odd", "even")}" }
+  %header
+    %p== [#{ProductFamily.model_name.human}]
+  .content
+    %h2= product_family.name
+    %dl
+      %dt= ProductFamily.human_attribute_name("description")
+      %dd= simple_format product_family.description
+  .action_links
+    = link_to t(:show_link), product_family
+    = link_to t(:edit_link), edit_product_family_path(product_family)
+    = link_to t(:destroy_link), product_family, :confirm => t(:confirm_destroy_message), :method => :delete

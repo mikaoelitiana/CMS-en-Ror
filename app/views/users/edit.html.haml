@@ -1,0 +1,6 @@
+- metatags :title => t(:edit_title, :model => @user.name)
+.action_links
+  = link_to t(:show_link), @user
+  = link_to t(:back_link), users_path
+
+= render 'form'
